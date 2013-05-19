@@ -17,6 +17,10 @@ but differs in the following ways:
   attributes on `this` to expose them.
 
 # API
+
+Full documentation for each method is available in the source code. I haven't
+finished moving those examples to this README.
+
 ## `Namespace`
 ```javascript
 > var myNamespace = new Namespace()
