@@ -142,6 +142,10 @@ var Namespace = function() {
   };
 };
 
+
+// A very hacky "test suite" -- run this file with node to see if these tests
+// pass.
+
 var exports;
 if (exports) {
   exports.Namespace = Namespace;
@@ -157,6 +161,7 @@ ns.updateGlobal({
 if (!(ns.exists('global.age'))) throw "Broken exists";
 if (!(ns.get('global.name') === 'Peter')) throw "Broken get";
 if (!(ns.get('global.undefined', 'default') === 'default')) throw "Broken get";
+
 ns.define('TestModule', [], function() {this.Helpers = true;});
 var outer_ns = ns;
 ns.define('PeterModule', ['TestModule.Helpers'], function(ns, Helpers) {
@@ -170,10 +175,8 @@ ns.define('PeterModule', ['TestModule.Helpers'], function(ns, Helpers) {
 });
 
 if (!ns.get('PeterModule').getX() === 12) throw "Broken define/get";
-console.log("All tests pass.");
 
-var namespace = new Namespace();
-namespace.define('LibA', [], function(namespace) {
+ns.define('LibA', [], function(namespace) {
   this.sayHello = function(name) {
     return 'Hello ' + name;
   };
@@ -181,30 +184,31 @@ namespace.define('LibA', [], function(namespace) {
 
 // This call fails because LibB is not defined.
 try {
-  namespace.define('PetersModule', ['LibA', 'LibB'], function(namespace, LibA, LibB) {
+  ns.define('PetersModule', ['LibA', 'LibB'], function(namespace, LibA, LibB) {
     // This function depends on both LibA and LibB
     this.sayHelloToObject = function(object) {
       return LibA.sayHello(LibB.getObjectName(object, 'Anonymous'));
     };
   });
 } catch (exception) {
-  console.log('caught expected exception');
-  console.log(exception);
+  console.log('caught expected exception:', exception);
 }
 
-namespace.define('LibB', [], function(namespace) {
+ns.define('LibB', [], function(namespace) {
   this.getObjectName = function(object, _default) {
     return object.name || _default;
   };
 });
 
 // This call succeeds because both LibA and LibB are defined
-namespace.define('PetersModule', ['LibA', 'LibB'], function(namespace, LibA, LibB) {
+ns.define('PetersModule', ['LibA', 'LibB'], function(namespace, LibA, LibB) {
   // This function depends on both LibA and LibB
   this.sayHelloToObject = function(object) {
     return LibA.sayHello(LibB.getObjectName(object, 'Anonymous'));
   };
 });
 
-console.log(namespace.PetersModule.sayHelloToObject({name : 'Peter'}))
+console.log(ns.PetersModule.sayHelloToObject({name : 'Peter'}))
+
+console.log("All tests pass.");
 
