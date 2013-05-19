@@ -10,7 +10,7 @@ but differs in the following ways:
 * **Many namespaces**: this file defines a `Namespace` object that should be
   instantiated.  Each instance has its own `define` and `require` methods.
 * **Module names required**: does not look at filenames to guess the module
-  name. In fact, it cant'. Explicit > implicit.
+  name — you pass one in when you define a module. Explicit > implicit.
 * **Instantiates your module immediately**: `Namespace.js` uses the [`new`
   keyword](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Operators/new)
   to instantiate your module definition. Your definition *is* the export — set
