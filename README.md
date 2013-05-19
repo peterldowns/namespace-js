@@ -28,6 +28,7 @@ for global state and shared data.
 
 ```javascript
 > var myNamespace = new Namespace()
+
 > myNamespace.global.user = {
     name: 'Peter',
     age: '19',
@@ -42,6 +43,7 @@ be thrown if one of the attribuets is already set.
 
 ```javascript
 > var myNamespace = new Namespace()
+
 > myNamespace.updateGlobal({
     user : {
       name: 'Peter',
@@ -50,13 +52,14 @@ be thrown if one of the attribuets is already set.
     csrf : 'w1kA(4F!!gjdk1',
     endpoint : '/user'
   });
+
 > myNamespace.user
 {name: 'Peter', age: '19'}
 
 > myNamespace.global.csrf
 'w1kA(4F!!gjdk1'
-> myNamespace.global.endpoint
 
+> myNamespace.global.endpoint
 '/user'
 ```
 
