@@ -1,7 +1,7 @@
 # Namespace.js
 
 This is a simple module for defining modules. It is very similar to [CommonJS](http://requirejs.org/docs/commonjs.html),
-but differes in the following ways:
+but differs in the following ways:
 
 * **Not asynchronous**: for now, does not do any asynchronous loading of
   dependencies. Resolution is very simple: if the depdency has already been
@@ -13,7 +13,7 @@ but differes in the following ways:
   name. In fact, it cant'. Explicit > implicit.
 * **Instantiates your module immediately**: `Namespace.js` uses the [`new`
   keyword](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Operators/new)
-  to instantiate your module definition. Your definition *is* the export -- set
+  to instantiate your module definition. Your definition *is* the export — set
   attributes on `this` to expose them.
 
 # API
