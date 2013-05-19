@@ -18,7 +18,7 @@ but differs in the following ways:
 
 # API
 ## `Namespace`
-```
+```javascript
 > var myNamespace = new Namespace()
 ```
 
@@ -26,7 +26,7 @@ but differs in the following ways:
 Set any variables that you'd like to make available to all modules here. Useful
 for global state and shared data. 
 
-```
+```javascript
 > var myNamespace = new Namespace()
 > myNamespace.global.user = {
     name: 'Peter',
@@ -40,7 +40,7 @@ argument should be an object with attributes that you'd like to add to
 `.global`. Optionally, pass `true` as the second argument to force an error to
 be thrown if one of the attribuets is already set.
 
-```
+```javascript
 > var myNamespace = new Namespace()
 > myNamespace.updateGlobal({
     user : {
@@ -52,9 +52,11 @@ be thrown if one of the attribuets is already set.
   });
 > myNamespace.user
 {name: 'Peter', age: '19'}
+
 > myNamespace.global.csrf
 'w1kA(4F!!gjdk1'
 > myNamespace.global.endpoint
+
 '/user'
 ```
 
