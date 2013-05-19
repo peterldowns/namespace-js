@@ -96,13 +96,14 @@ var Namespace = function() {
   //  > myfunc.apply(namespace.Widget.Core, [namespace, arg1val, arg2val]):
   //
   // moduleDefinition: must be a Function. It must not set any attributes on
-  // the Namespace object. The first argument to the definition will be this global
-  // Namespace object.
+  // the Namespace object. The first argument to the definition will be this
+  // global Namespace object.
   //
   // moduleArguments: must either be an Array or a falsy value or omitted.
   //
   // dottedName: must not begin or end with a '.', and the first part of the
-  // must not be 'global', 'updateGlobal', 'define', or 'get'.
+  // must not be 'global', 'updateGlobal', 'require', 'exists', 'define', or
+  // 'get'.
   Namespace.define = function(
       dottedName, dependencyNames, moduleDefinition, moduleArguments) {
     // Resolve dependencies before doing any sort of definition. If any of the
