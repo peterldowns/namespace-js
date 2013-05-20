@@ -67,17 +67,107 @@ be thrown if one of the attribuets is already set.
 '/user'
 ```
 
+#### Arguments:
+* `settings`: a object mapping by which to extend the `Namespace.global` object.
+* `overrideProtect`: a boolean. If true, this method will raise an exception
+  when attempting to redefine an existing mapping.
+
 ### `Namespace.get`
-TODO(peter)
+A helper function for resolving a dotted name, useful for checking properties
+on nested namespaces or modules. Example usage:
+
+```javascript
+> var namespace = new Namespace();
+
+> namespace.get('TestModule');
+undefined
+
+> namespace.get('TestModule', 1994);
+1994
+
+> if (namespace.get('TestModule.foo.bar')) {
+    console.log('TestModule, TestModule.foo, and TestModule.foo.bar are all defined');
+  } else {
+    console.log('break in the chain');
+  }
+break in the chain
+```
+
+#### Arguments:
+* `dottedName`: the dotted name of the dependency to resolve, expressed
+  relative to the root `Namespace` object.
 
 ### `Namespace.require`
-TODO(peter)
+Like `Namespace.get`, but throws an exception if the value does not exist.
+
+```javascript
+> var namespace = new Namespace();
+
+> namespace.require('global.TestModuleFlag');
+required value ('global.TestModuleFlag') not defined
+
+> namespace.global.testModuleFlag = 1994;
+
+> namespace.require('global.TestModuleFlag');
+1994
+```
+
+#### Arguments:
+* `dottedName`: the dotted name of the dependency to resolve, expressed
+  relative to the root `Namespace` object.
 
 ### `Namespace.exists`
-TODO(peter)
+Returns a boolean describing whether or not a dotted name exists.
+
+```javascript
+> var namespace = new Namespace();
+
+> namespace.global.person = {
+    age: 19,
+    name: 'Peter',
+  };
+
+> namespace.exists('global.person.age');
+true
+
+> namespace.exists('global.foobar');
+false
+
+> namespace.exists('global.person.dne');
+false
+```
+
+#### Arguments:
+* `dottedName`: the dotted name of the dependency to resolve, expressed
+  relative to the root `Namespace` object.
 
 ### `Namespace.define`
-TODO(peter)
+A helper function to add modules to the current namespace. For example,
+
+```javascript
+> var namespace = new Namespace();
+> namespace.define('Widget.Core',
+                   ['dep1', 'dep2'],
+                   function constructor() {...},
+                   [arg1val, arg2val]);
+```
+
+will set `namespace.Widget.Core` to {} if it doesn't already exist and run
+
+```
+> constructor.apply(namespace.Widget.Core, [namespace, dep1, dep2, arg1val, arg2val]):
+```
+
+#### Arguments:
+* `dottedName`: must not begin or end with a '.', and the first part of the
+  must not be one of these built-in methods.
+* `dependencyNames`: a list of dotted names to resolve into dependencies. Each of these is
+  resolved with the `Namespace.require` method; if any of them does not exist an exception
+  will be thrown.
+* `moduleDefinition`: a function. It must not set any attributes on the
+  Namespace object. The first argument to the definition will be this global
+  Namespace object.
+* `moduleArguments`: must either be an Array or a falsy value or omitted.
 
 # Example Module Definition
 TODO(peter)
