@@ -21,12 +21,12 @@ but differs in the following ways:
 Full documentation for each method is available in the source code. I haven't
 finished moving those examples to this README.
 
-## `Namespace`
+## Namespace
 ```javascript
 > var myNamespace = new Namespace()
 ```
 
-### `Namespace.global`
+### Namespace.global
 Set any variables that you'd like to make available to all modules here. Useful
 for global state and shared data. 
 
@@ -39,7 +39,7 @@ for global state and shared data.
   };
 ```
 
-### `Namespace.updateGlobal`
+### Namespace.updateGlobal
 Extend a namespace instance's `.global` with many values at once. The first
 argument should be an object with attributes that you'd like to add to
 `.global`. Optionally, pass `true` as the second argument to force an error to
@@ -67,12 +67,12 @@ be thrown if one of the attribuets is already set.
 '/user'
 ```
 
-#### Arguments:
+##### Arguments:
 * `settings`: a object mapping by which to extend the `Namespace.global` object.
 * `overrideProtect`: a boolean. If true, this method will raise an exception
   when attempting to redefine an existing mapping.
 
-### `Namespace.get`
+### Namespace.get
 A helper function for resolving a dotted name, useful for checking properties
 on nested namespaces or modules. Example usage:
 
@@ -93,11 +93,11 @@ undefined
 break in the chain
 ```
 
-#### Arguments:
+##### Arguments:
 * `dottedName`: the dotted name of the dependency to resolve, expressed
   relative to the root `Namespace` object.
 
-### `Namespace.require`
+### Namespace.require
 Like `Namespace.get`, but throws an exception if the value does not exist.
 
 ```javascript
@@ -112,11 +112,11 @@ required value ('global.TestModuleFlag') not defined
 1994
 ```
 
-#### Arguments:
+##### Arguments:
 * `dottedName`: the dotted name of the dependency to resolve, expressed
   relative to the root `Namespace` object.
 
-### `Namespace.exists`
+### Namespace.exists
 Returns a boolean describing whether or not a dotted name exists.
 
 ```javascript
@@ -137,11 +137,11 @@ false
 false
 ```
 
-#### Arguments:
+##### Arguments:
 * `dottedName`: the dotted name of the dependency to resolve, expressed
   relative to the root `Namespace` object.
 
-### `Namespace.define`
+### Namespace.define
 A helper function to add modules to the current namespace. For example,
 
 ```javascript
@@ -158,7 +158,7 @@ will set `namespace.Widget.Core` to {} if it doesn't already exist and run
 > constructor.apply(namespace.Widget.Core, [namespace, dep1, dep2, arg1val, arg2val]):
 ```
 
-#### Arguments:
+##### Arguments:
 * `dottedName`: must not begin or end with a '.', and the first part of the
   must not be one of these built-in methods.
 * `dependencyNames`: a list of dotted names to resolve into dependencies. Each of these is
