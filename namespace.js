@@ -108,8 +108,7 @@ var Namespace = function() {
   // global Namespace object.
   //
   // moduleArguments: must either be an Array or a falsy value or omitted.
-  Namespace.define = function(
-      dottedName, dependencyNames, moduleDefinition, moduleArguments) {
+  Namespace.define = function(dottedName, dependencyNames, moduleDefinition) {
     // Resolve dependencies before doing any sort of definition. If any of the
     // dependencies is undefined, throw an error instead of defining the
     // module.
@@ -129,8 +128,7 @@ var Namespace = function() {
     var moduleName = names.pop();
     // The first argument to every module definition is the global Namespace
     // object. This is followed by any dependencies, then any module arguments.
-    moduleArguments = dependencies.concat(moduleArguments || []);
-    moduleArguments.unshift(Namespace);
+    dependencies.unshift(Namespace);
     // Define the module in the correct namespace, traversing the dotted names
     // until there are no more.
     var namespace = this;
@@ -142,7 +140,7 @@ var Namespace = function() {
       throw "Cannot define '" + dottedName + "' (already exists)";
     }
     var module = namespace[moduleName] = {};
-    moduleDefinition.apply(module, moduleArguments);
+    moduleDefinition.apply(module, dependencies);
   };
 };
 

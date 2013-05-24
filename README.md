@@ -148,8 +148,7 @@ A helper function to add modules to the current namespace. For example,
 > var namespace = new Namespace();
 > namespace.define('Widget.Core',
                    ['dep1', 'dep2'],
-                   function constructor() {...},
-                   [arg1val, arg2val]);
+                   function constructor() {...});
 ```
 
 will set `namespace.Widget.Core` to {} if it doesn't already exist and run
@@ -167,7 +166,6 @@ will set `namespace.Widget.Core` to {} if it doesn't already exist and run
 * `moduleDefinition`: a function. It must not set any attributes on the
   Namespace object. The first argument to the definition will be this global
   Namespace object.
-* `moduleArguments`: must either be an Array or a falsy value or omitted.
 
 # Example Module Definition
 TODO(peter)
