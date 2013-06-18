@@ -115,12 +115,7 @@ var Namespace = function() {
     var dependencies = [];
     dependencyNames = dependencyNames || [];
     for (var i = 0; i < dependencyNames.length; i++) {
-      var dependencyName = dependencyNames[i];
-      var dependency = Namespace.get(dependencyName, undefined);
-      if (dependency === undefined) {
-        throw "Dependencies not met: '" + dependencyName + "' not defined";
-      }
-      dependencies.push(dependency);
+      dependencies.push(Namespace.require(dependencyNames[i]));
     }
 
     var names = dottedName.split('.');
@@ -146,7 +141,7 @@ var Namespace = function() {
 
 
 // If this is being run in the node context, define our Namespace export.
-var exports;
-if (exports) {
+if (typeof exports !== 'undefined') {
   exports.Namespace = Namespace;
 }
+
